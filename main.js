@@ -230,46 +230,45 @@ function initBurger() {
 }
 
 /* ── Contact form ── */
-function initContactForm() {
-    const form = document.getElementById('contactForm');
-    const status = document.getElementById('formStatus');
+const form = document.getElementById("contactForm");
 
-    form.addEventListener('submit', e => {
-        e.preventDefault();
-        if (!form.checkValidity()) {
-            form.reportValidity();
-            return;
-        }
-        const btn = form.querySelector('[type="submit"]');
-        btn.disabled = true;
-        btn.textContent = 'Sending…';
+if (form) {
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
 
-        /* 
-          NOTE: This is a demo submission. 
-          To enable real submission, replace the setTimeout below with a 
-          fetch() call to your backend or a service like Formspree / EmailJS.
-          Example: fetch('https://formspree.io/f/YOUR_ID', { method:'POST', body: new FormData(form) })
-        */
-        setTimeout(() => {
-            status.textContent = 'Thank you — your message has been recorded. As this is a demo, no email has been sent. To enable real submissions, connect this form to a backend service.';
-            status.className = 'form-status ok';
-            btn.disabled = false;
-            btn.textContent = '☸  Send Message';
-            form.reset();
-        }, 1200);
-    });
-}
+    const formData = {
+      firstName: document.getElementById("cfirst")?.value.trim() || "",
+      lastName: document.getElementById("clast")?.value.trim() || "",
+      email: document.getElementById("cemail")?.value.trim() || "",
+      phone: document.getElementById("cphone")?.value.trim() || "",
+      subject: document.getElementById("csubject")?.value.trim() || "",
+      message: (document.getElementById("cmessage") || document.getElementById("cmsg"))?.value.trim() || ""
+    };
 
-/* ── Newsletter form ── */
-function initNewsletter() {
-    const form = document.getElementById('nlForm');
-    const msg = document.getElementById('nl-msg');
-    form.addEventListener('submit', e => {
-        e.preventDefault();
-        msg.textContent = 'Thank you for subscribing! (Demo only — no data is stored. Connect to a mailing service to enable real subscriptions.)';
+    try {
+      const response = await fetch("http://localhost:3000/send-mail", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formData)
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        alert("Message sent successfully.");
         form.reset();
-    });
+      } else {
+        alert(result.message || "Failed to send message.");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Server error. Please try again.");
+    }
+  });
 }
+
 
 /* ── Year in footer ── */
 document.getElementById('yr').textContent = new Date().getFullYear();
@@ -282,6 +281,4 @@ document.addEventListener('DOMContentLoaded', () => {
     initNavHighlight();
     initNavScroll();
     initBurger();
-    initContactForm();
-    initNewsletter();
 });
