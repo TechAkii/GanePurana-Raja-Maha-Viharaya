@@ -1,107 +1,241 @@
-
 'use strict';
 
 /* ════════════════════════════════════════
    EVENTS DATA — edit this array to update
+   Add countdownTo with an exact ISO date when
+   the temple confirms the next occurrence.
    ════════════════════════════════════════ */
 const EVENTS = [
     {
         id: 1,
         title: 'Vesak Poya Celebration',
         category: 'annual',
-        badge: 'May 2026',
+        badge: 'Seasonal · Vesak',
         status: 'upcoming',
         cat_label: '🌸 Annual Festival',
         description: 'Celebrate the birth, enlightenment, and parinibbana of the Lord Buddha with traditional lantern displays, pirith chanting, dharma talks, and dansalas throughout Bentota.',
         img: 'Vesak_festival.png',
         imgAlt: 'Vesak lantern celebrations in Sri Lanka',
-        meta: ['📅 Full Moon Poya', '⏰ All Day & Night', '🎟️ Free Entry']
+        meta: ['📅 Vesak season', '⏰ All day & evening', '🎟️ Public welcome'],
+        countdownTo: '',
+        countdownNote: 'Add the next confirmed Vesak programme date to show a live countdown.'
     },
     {
         id: 2,
         title: 'Poya Day Sil Programme',
         category: 'monthly',
-        badge: 'Every Poya',
+        badge: 'Every Poya Day',
         status: 'ongoing',
         cat_label: '☸ Monthly Observance',
         description: 'Every full moon Poya day — an eight-precept sil observance including morning bana, group meditation, and midday almsgiving to the Sangha.',
         img: 'sil_programme.png',
-        imgAlt: '',
-        meta: ['📅 Monthly', '⏰ 5:00 AM – 6:00 PM', '👕 White Attire']
+        imgAlt: 'Poya day religious programme at the temple',
+        meta: ['📅 Every full moon Poya', '⏰ 5:00 AM – 6:00 PM', '👕 White attire recommended'],
+        countdownTo: '',
+        countdownNote: 'Set the next exact Poya programme date to activate this countdown.'
     },
     {
         id: 3,
         title: 'Annual Piriwena Prize Giving',
         category: 'piriwena',
-        badge: 'Dec 2026',
+        badge: 'Annual · December',
         status: 'upcoming',
         cat_label: '📚 Piriwena',
         description: 'The annual prize-giving ceremony honouring student monks who have excelled in national Piriwena examinations at Praathamic, Madhyama, and Upadaya levels.',
         img: 'prize_giving.png',
         imgAlt: 'Buddhist monks at a Sri Lankan temple',
-        meta: ['📅 December', '⏰ 9:00 AM', '🎖️ All Monks']
+        meta: ['📅 Annual school calendar', '⏰ 9:00 AM', '🎖️ Temple and invited guests'],
+        countdownTo: '',
+        countdownNote: 'Add the next confirmed prize-giving date to display the countdown.'
     },
     {
         id: 4,
         title: 'Sacred Bodhi Puja — Poson',
         category: 'annual',
-        badge: 'June 2026',
+        badge: 'Seasonal · Poson',
         status: 'upcoming',
         cat_label: '🌳 Annual Ceremony',
         description: 'A dawn puja at the Bodhi tree on the temple premises. Devotees offer flowers and oil lamps while the monks chant sutras.',
         img: 'Bodhi_puja.jpg',
         imgAlt: 'Sacred Bodhi tree',
-        meta: ['📅 Poson Poya — June', '⏰ 5:30 AM', '🌸 All Welcome']
+        meta: ['📅 Poson season', '⏰ 5:30 AM', '🌸 All welcome'],
+        countdownTo: '2026.06.29',
+        countdownNote: 'Add the next confirmed Poson Bodhi Puja date to enable the countdown.'
     },
     {
         id: 5,
         title: 'Dhamma School — Daham Pasala',
         category: 'education',
-        badge: 'Every Sunday',
+        badge: 'Weekly · Sunday',
         status: 'ongoing',
         cat_label: '🏫 Education',
         description: 'The Daham Pasala teaches Buddhist philosophy, Sinhala language, and culture to children of Bentota and surrounding villages every Sunday morning.',
         img: 'daham_pasala.png',
-        imgAlt: '',
-        meta: ['📅 Every Sunday', '⏰ 8:00 AM', '👶 Children']
+        imgAlt: 'Daham Pasala education programme for children',
+        meta: ['📅 Every Sunday', '⏰ 8:00 AM', '👶 Children and families'],
+        countdownMode: 'weekly-sunday',
+        countdownHour: 8,
+        countdownMinute: 0,
+        countdownNote: 'Counting down to the next Sunday Daham Pasala session.'
     },
     {
         id: 6,
         title: 'Katina Pinkama',
         category: 'annual',
-        badge: 'Oct / Nov 2026',
+        badge: 'Seasonal · Katina',
         status: 'upcoming',
         cat_label: '🕯️ Annual Ceremony',
         description: 'The Katina ceremony marks the end of the Vas (rains retreat) season. Devotees offer robes and requisites to the Sangha.',
         img: 'katina_pinkama.png',
-        imgAlt: '',
-        meta: ['📅 After Vap Poya', '⏰ 8:00 AM', '🎊 Procession']
+        imgAlt: 'Katina Pinkama ceremony at a Buddhist temple',
+        meta: ['📅 After Vap Poya', '⏰ 8:00 AM', '🎊 Procession and offering'],
+        countdownTo: '',
+        countdownNote: 'Add the confirmed Katina date after the temple finalises the programme.'
     },
     {
         id: 7,
         title: 'Community Almsgiving — Sangha Dana',
         category: 'monthly',
-        badge: 'According to arrangemnet date',
+        badge: 'By Prior Arrangement',
         status: 'ongoing',
         cat_label: '🙏 Almsgiving',
-        description: 'Monthly almsgiving to the resident monks. Families may contact the temple to arrange a personal or group dana on any Poya day.',
+        description: 'Families may contact the temple in advance to request a personal or group dana for the resident monks. Dates are arranged directly with the temple.',
         img: 'community_almsgiving.png',
-        imgAlt: '',
-        meta: ['📅 Poya Days', '⏰ 10:30 AM', '📞 Pre-arrange Required']
+        imgAlt: 'Community almsgiving offered to resident monks',
+        meta: ['📅 Arranged directly with temple', '⏰ Usually before noon', '📞 Prior confirmation required'],
+        countdownTo: '',
+        countdownNote: '',
+        hideCountdown: true
     },
     {
         id: 8,
         title: 'National Piriwena Examination',
         category: 'piriwena',
-        badge: 'Annual',
+        badge: 'Annual Academic Calendar',
         status: 'past',
         cat_label: '📝 Piriwena',
         description: 'Student monks sit the national Piriwena examination administered by the Government of Sri Lanka — a milestone in their academic monastic training.',
         img: 'piriwena.jpg',
-        imgAlt: '',
-        meta: ['📅 Annual', '⏰ All Day', '📝 Monks Only']
+        imgAlt: 'Student monks taking part in Piriwena education',
+        meta: ['📅 Annual education calendar', '⏰ All day', '📝 Student monks'],
+        countdownTo: '',
+        countdownNote: 'Set the next confirmed examination date when the academic calendar is published.'
     }
 ];
+
+let countdownTimer = null;
+
+function getNextWeeklyOccurrence(dayIndex, hour = 0, minute = 0) {
+    const now = new Date();
+    const target = new Date(now);
+
+    target.setHours(hour, minute, 0, 0);
+
+    let daysUntil = dayIndex - now.getDay();
+    if (daysUntil < 0 || (daysUntil === 0 && target <= now)) {
+        daysUntil += 7;
+    }
+
+    target.setDate(now.getDate() + daysUntil);
+    return target;
+}
+
+function resolveCountdownTarget(event) {
+    if (event.countdownMode === 'weekly-sunday') {
+        return getNextWeeklyOccurrence(0, event.countdownHour || 0, event.countdownMinute || 0);
+    }
+
+    if (event.countdownTo) {
+        const manualDate = new Date(event.countdownTo);
+        if (!Number.isNaN(manualDate.getTime())) {
+            return manualDate;
+        }
+    }
+
+    return null;
+}
+
+function getCountdownMarkup(event) {
+    const target = resolveCountdownTarget(event);
+    if (event.hideCountdown) {
+        return '';
+    }
+
+    if (!target) {
+        return `
+          <div class="ev-countdown ev-countdown-note">
+            <p class="cd-note">${event.countdownNote || 'Countdown will appear once the exact event date is confirmed.'}</p>
+          </div>
+        `;
+    }
+
+    return `
+      <div class="ev-countdown" data-date="${target.toISOString()}" aria-live="polite">
+        <div class="cd-box">
+          <span class="cd-num">--</span>
+          <span class="cd-label">Days</span>
+        </div>
+        <div class="cd-box">
+          <span class="cd-num">--</span>
+          <span class="cd-label">Hours</span>
+        </div>
+        <div class="cd-box">
+          <span class="cd-num">--</span>
+          <span class="cd-label">Min</span>
+        </div>
+        <div class="cd-box">
+          <span class="cd-num">--</span>
+          <span class="cd-label">Sec</span>
+        </div>
+      </div>
+    `;
+}
+
+function updateCountdownElement(el) {
+    const targetDate = new Date(el.dataset.date).getTime();
+    const now = Date.now();
+    const diff = targetDate - now;
+
+    if (Number.isNaN(targetDate)) {
+        el.innerHTML = '<p class="cd-note">Countdown unavailable because the event date is invalid.</p>';
+        return;
+    }
+
+    if (diff <= 0) {
+        el.innerHTML = '<p class="cd-ended">This event is happening now or has already started.</p>';
+        return;
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    const nums = el.querySelectorAll('.cd-num');
+    if (nums.length < 4) return;
+
+    nums[0].textContent = String(days);
+    nums[1].textContent = String(hours).padStart(2, '0');
+    nums[2].textContent = String(minutes).padStart(2, '0');
+    nums[3].textContent = String(seconds).padStart(2, '0');
+}
+
+function startEventCountdowns() {
+    const countdowns = document.querySelectorAll('.ev-countdown[data-date]');
+
+    if (countdownTimer) {
+        clearInterval(countdownTimer);
+        countdownTimer = null;
+    }
+
+    if (!countdowns.length) return;
+
+    countdowns.forEach(updateCountdownElement);
+
+    countdownTimer = setInterval(() => {
+        document.querySelectorAll('.ev-countdown[data-date]').forEach(updateCountdownElement);
+    }, 1000);
+}
 
 /* ── Render events ── */
 function renderEvents(filter = 'all') {
@@ -110,6 +244,11 @@ function renderEvents(filter = 'all') {
 
     if (!filtered.length) {
         grid.innerHTML = `<div class="ev-empty"><span>🙏</span><p>No events in this category at the moment.</p></div>`;
+
+        if (countdownTimer) {
+            clearInterval(countdownTimer);
+            countdownTimer = null;
+        }
         return;
     }
 
@@ -120,6 +259,7 @@ function renderEvents(filter = 'all') {
             ? `<img src="${ev.img}" alt="${ev.imgAlt}" loading="lazy"/>`
             : '';
         const metaHtml = ev.meta.map(m => `<span class="evmi">${m}</span>`).join('');
+        const countdownHtml = getCountdownMarkup(ev);
 
         return `
       <article class="evc">
@@ -134,10 +274,13 @@ function renderEvents(filter = 'all') {
           </div>
           <h3>${ev.title}</h3>
           <p>${ev.description}</p>
+          ${countdownHtml}
           <div class="evmeta" aria-label="Event details">${metaHtml}</div>
         </div>
       </article>`;
     }).join('');
+
+    startEventCountdowns();
 }
 
 /* ── Render filter buttons ── */
@@ -203,8 +346,6 @@ function initNavScroll() {
     }, { passive: true });
 }
 
-initNavScroll();
-
 /* ── Mobile burger ── */
 function initBurger() {
     const burger = document.getElementById('burger');
@@ -230,48 +371,68 @@ function initBurger() {
 }
 
 /* ── Contact form ── */
-const form = document.getElementById("contactForm");
+function initContactForm() {
+    const form = document.getElementById('contactForm');
+    const formStatus = document.getElementById('formStatus');
+    if (!form || !formStatus) return;
 
-if (form) {
-  form.addEventListener("submit", async function (e) {
-    e.preventDefault();
-
-    const formData = {
-      firstName: document.getElementById("cfirst")?.value.trim() || "",
-      lastName: document.getElementById("clast")?.value.trim() || "",
-      email: document.getElementById("cemail")?.value.trim() || "",
-      phone: document.getElementById("cphone")?.value.trim() || "",
-      subject: document.getElementById("csubject")?.value.trim() || "",
-      message: (document.getElementById("cmessage") || document.getElementById("cmsg"))?.value.trim() || ""
+    const setFormStatus = (type, message) => {
+        formStatus.className = `form-status ${type}`;
+        formStatus.textContent = message;
     };
 
-    try {
-      const response = await fetch("http://localhost:3000/send-mail", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(formData)
-      });
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
 
-      const result = await response.json();
+        const formData = {
+            firstName: document.getElementById('cfirst')?.value.trim() || '',
+            lastName: document.getElementById('clast')?.value.trim() || '',
+            email: document.getElementById('cemail')?.value.trim() || '',
+            phone: document.getElementById('cphone')?.value.trim() || '',
+            subject: document.getElementById('csubject')?.value.trim() || '',
+            message: document.getElementById('cmsg')?.value.trim() || ''
+        };
 
-      if (result.success) {
-        alert("Message sent successfully.");
-        form.reset();
-      } else {
-        alert(result.message || "Failed to send message.");
-      }
-    } catch (error) {
-      console.error(error);
-      alert("Server error. Please try again.");
-    }
-  });
+        if (!formData.firstName || !formData.email || !formData.subject || !formData.message) {
+            setFormStatus('err', 'Please complete first name, email, subject, and message before sending.');
+            return;
+        }
+
+        const endpoint = form.dataset.endpoint?.trim();
+        if (!endpoint) {
+            setFormStatus('err', 'Message delivery is not connected yet. Add a live form endpoint or email service before publishing this contact form.');
+            return;
+        }
+
+        setFormStatus('ok', 'Sending your message...');
+
+        try {
+            const response = await fetch(endpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const result = await response.json();
+
+            if (result.success) {
+                setFormStatus('ok', 'Message sent successfully.');
+                form.reset();
+            } else {
+                setFormStatus('err', result.message || 'Failed to send message.');
+            }
+        } catch (error) {
+            console.error(error);
+            setFormStatus('err', 'Unable to send the message right now. Please try again after the live form service is connected.');
+        }
+    });
 }
-
-
-/* ── Year in footer ── */
-document.getElementById('yr').textContent = new Date().getFullYear();
 
 /* ── Init all ── */
 document.addEventListener('DOMContentLoaded', () => {
@@ -281,4 +442,8 @@ document.addEventListener('DOMContentLoaded', () => {
     initNavHighlight();
     initNavScroll();
     initBurger();
+    initContactForm();
+
+    const year = document.getElementById('yr');
+    if (year) year.textContent = new Date().getFullYear();
 });
